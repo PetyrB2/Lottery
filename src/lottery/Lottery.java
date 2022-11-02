@@ -47,39 +47,41 @@ public class Lottery {
 
 		// A For loop for scanner sc
 		for (int i = 0; i < 6; i++) {
-			System.out.println("Your current numbers are: " + guessedNumbers);
 			System.out.println("Enter a Number [1-49]");
 			while (true) {
 				try {
 					String numbersString = sc.nextLine();
 					int number = Integer.parseInt(numbersString);
-					if (number >= 1 && number <= 49) {
+					if (number >= 1 && number <= 49 && (!guessedNumbers.contains(number))) {
 						guessedNumbers.add(number);
 						 //using Collections.sort() to sort ArrayList
 				        Collections.sort(guessedNumbers);
 						System.out.println("Your 6 numbers are: " + guessedNumbers);
 						break;
 					} else {
-						System.out.println("Pick a number between 1 and 49 !");
+						System.out.println("Pick a number between 1 and 49 and NO Repetition !");
 					}
 				} catch (NumberFormatException nfe) {
 					System.out.println("Not a Number!");
 				}
-			}
+			}		
 		}
-		System.out.println("Winning Numbers are: " + winningNumbers);
-		System.out.println("");
-		System.out.println("Your Numbers are: " + guessedNumbers);
 		
+		
+		// Matching Any 
 		guessedNumbers.retainAll(winningNumbers);
 		
-		System.out.println("matched Numbers are: " + guessedNumbers);
-		
+		// Macthing all 6
 		if (guessedNumbers.containsAll(winningNumbers)) {
 			System.out.println("WOW!  You guessed all 6! \n !!! YOU JUST WON THE LOTTERY !!!");
 		}
-		else {
-			System.out.println("Unlucky. You didn't get ALL 6 - Try again.");
+		
+		if (guessedNumbers.size() > 0) {
+			System.out.println("matched Numbers are: " + guessedNumbers);	
 		}
+		else {
+			System.out.println("No matching Numbers.");
+		}
+		
 	}
 }
